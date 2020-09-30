@@ -1,0 +1,83 @@
+1. Java Part path:  frameworks/base/media/java/android/media
+    contains the AudioManager and Audio systems class.
+
+2. JNI Part path: frameworks/base/core/jni
+library generated : libandroid_runtime.so
+
+files check : android_media_AudioSystem.cpp, android_media_Audio Track.cpp,	
+android_media_AudioRecord.cpp.
+
+3. For Media Library : used to add the format (e.g mp3,aac,wav)
+    1. Header path: frameworks/av/media/
+        
+    2. Source code path: frameworks/av/media/libmedia/
+        check content : mediaplayer.cpp and mediarecorder.cpp 
+
+Conversion from pcm to audio format by adding the header.
+
+Header file in libmedia library:
+Audio System Header files path :frameworks/av/media/libaudioclient/include/media/ 
+
+a) AudioSystem.h: The Audio part of the media library corresponds to the upper level interface.
+Provides routes to interface various devices  . Here bitwise OR for devices connected.
+audio_routes represented as separated bits. 
+
+b) IAudioFlinger.h: pipe interface that implemented in the lower layer.
+
+c) AudioTrack.h: the playback part and on the upper interface;
+
+d) IAudioTrack.h: The playback pipe interface part requires an interface implemented by the lower layer.
+
+e) AudioRecord.h: the recording part is on the upper interface.
+
+f) IAudioRecorder.h: The pipe interface recording part requires an interface and implemented by the lower layer.
+
+4. binder
+path : frameworks/av/media/libaudioclient/
+check files : IAudioTrack.cpp,IAudioFlinger.cpp
+ibinder.cpp path : frameworks/native/libs/binder/ndk/ibinder.cpp	
+
+
+
+5. Audio Flinger path: frameworks/av/services/audioflinger
+check files : AudioFlinger.h and AudioFlinger.cpp
+check content : createTrack() in AudioFlinger.cpp
+                openInput(     in AudioFlinger.cpp
+     understand process of creating the playback device thread.
+    Audio Mixer implemented by : AudioMixer.h and AudioMixer.cpp
+      Audio Sampler call Audio Mixer.
+
+mediaserver started by init.rc path: frameworks/av/media/mediaserver/mediaserver.rc
+
+
+6. HAL path: hardware/libhardware_legacy/include/hardware_legacy
+
+   path to cpp files : hardware/libhardware_legacy/audio/
+   check files : AudioHardwareInterface.cpp, AudioHardwareGeneric.cpp,
+   AudioDumpInterface.cpp,A2dpAudioInterface.cpp
+
+   check files path: hardware/libhardware_legacy/include/hardware_legacy/AudioHardwareInterface.h
+      check content :  AudioStreamOut, AudioStreamIn AudioHardwareInterface,OpenInputStream
+                       OpenOutputStream, 
+                       extern "C" AudioHardwareInterface* createAudioHardware(void);-> get a    
+                       pointer to AudioHardwareInterface while implement the HAL.
+    
+   check files path : hardware/libhardware_legacy/audio/
+     check contents : AudioDumpInterface.h and AudioDumpInterface.cpp
+          to write output data to file when no device avaialable.
+
+
+
+
+
+
+
+
+
+
+***AudioResampler class : frameworks/av/libaudioprocessing/include/media/AudioResampler.h
+*** Audio System path : frameworks/av/media/libmediaplayerservice/
+
+*** means not included 
+
+
